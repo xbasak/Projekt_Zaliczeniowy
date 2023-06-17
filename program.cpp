@@ -12,13 +12,6 @@ void program::menu()
 {
     char buffer[30];
     string data;
-    ofstream plik;
-    plik.open("C:/Users/Arek/Desktop/Projekt/klienci.txt");
-    if (plik.is_open())
-    {
-        plik<<"NR\tPLEC\tIMIE\tNAZWISKO\tADRES\t"<<endl;
-    }
-    plik.close();
     int nrK=0;
     int nrZ=100;
     int nrKZ = 0;
@@ -142,7 +135,6 @@ void program::klientDoPliku(vector<klient> klienci)
     ofstream plik;
     plik.open("C:/Users/Arek/Desktop/Projekt/klienci.txt");
     if (plik.is_open()) {
-        cout << "Zapisuje do pliku" << endl;
         for (auto zmienna: klienci)
         {
             plik<<zmienna.returnNrK()<<"\t"<<zmienna.returnPlec()<<"\t"<<zmienna.returnImie()<<"\t"
@@ -171,20 +163,21 @@ void program::wyswietlZamowienia(vector<zamowienie> zakupy)
     plik2.open("C:/Users/Arek/Desktop/Projekt/zamowienia.txt");
     cout<<endl<<"ZAMOWIENIA:"<<endl;
     cout<<"Nr-Zamowienia\tNr-Klienta\tNazwa\tIlosc\tWartosc-Zamowien\tStawka-VAT\tData-Zamowienia\tSposob-Platnosci"<<endl;
-    //    for(auto &zmienna: zakupy)
-    //    {
-    //        cout<<zmienna.returnNrZ()<<"\t\t"<<zmienna.returnNrKZ()<<"\t\t"<<zmienna.returnNazwa()<<"\t"
-    //           <<zmienna.returnIlosc()<<"\t\t"<<zmienna.returnWartosc()<<"\t\t"<<zmienna.returnVat()<<"\t\t"<<zmienna.returnData()<<"\t"<<zmienna.returnPlatnosc()<<endl;
-    //        plik2<<zmienna.returnNrZ()<<"\t\t"<<zmienna.returnNrKZ()<<"\t\t"<<zmienna.returnNazwa()<<"\t\t"
-    //            <<zmienna.returnWartosc()<<"\t\t"<<zmienna.returnVat()<<"\t\t"<<zmienna.returnData()<<"\t"<<zmienna.returnPlatnosc()<<endl;
-    //    }
-    for(int k=0;k<zakupy.size();k++)
-    {
-        cout<<zakupy[k].nrZ<<"\t\t"<<zakupy[k].nrKZ<<"\t\t"<<zakupy[k].nazwa<<"\t"
-           <<zakupy[k].ilosc<<"\t\t"<<zakupy[k].wartosc<<"\t\t"<<zakupy[k].vat<<"\t\t"<<zakupy[k].data<<"\t"<<zakupy[k].platnosc<<endl;
-        plik2<<zakupy[k].nrZ<<"\t\t"<<zakupy[k].nrKZ<<"\t\t"<<zakupy[k].nazwa<<"\t"
-            <<zakupy[k].ilosc<<"\t\t"<<zakupy[k].wartosc<<"\t\t"<<zakupy[k].vat<<"\t\t"<<zakupy[k].data<<"\t"<<zakupy[k].platnosc<<endl;
-    }
+        for(auto &zmienna: zakupy)
+        {
+            cout<<zmienna.returnNrZ()<<"\t\t"<<zmienna.returnNrKZ()<<"\t\t"<<zmienna.returnNazwa()<<"\t"
+               <<zmienna.returnIlosc()<<"\t\t"<<zmienna.returnWartosc()<<"\t\t"<<zmienna.returnVat()<<"\t\t"<<zmienna.returnData()<<"\t"<<zmienna.returnPlatnosc()<<endl;
+            plik2<<zmienna.returnNrZ()<<"\t\t"<<zmienna.returnNrKZ()<<"\t\t"<<zmienna.returnNazwa()<<"\t\t"
+                <<zmienna.returnWartosc()<<"\t\t"<<zmienna.returnVat()<<"\t\t"<<zmienna.returnData()<<"\t"<<zmienna.returnPlatnosc()<<endl;
+        }
+        cout<<endl;
+//    for(int k=0;k<zakupy.size();k++)
+//    {
+//        cout<<zakupy[k].nrZ<<"\t\t"<<zakupy[k].nrKZ<<"\t\t"<<zakupy[k].nazwa<<"\t"
+//           <<zakupy[k].ilosc<<"\t\t"<<zakupy[k].wartosc<<"\t\t"<<zakupy[k].vat<<"\t\t"<<zakupy[k].data<<"\t"<<zakupy[k].platnosc<<endl;
+//        plik2<<zakupy[k].nrZ<<"\t\t"<<zakupy[k].nrKZ<<"\t\t"<<zakupy[k].nazwa<<"\t"
+//            <<zakupy[k].ilosc<<"\t\t"<<zakupy[k].wartosc<<"\t\t"<<zakupy[k].vat<<"\t\t"<<zakupy[k].data<<"\t"<<zakupy[k].platnosc<<endl;
+//    }
     plik2.close();
     ofstream plik4;
     int i=0;
@@ -219,7 +212,7 @@ void program::wyswietlProdukty()
     cout<<endl;
 }
 
-void program::edytujKlienta(vector<klient> klienci, int opcjaK,int nrK)
+void program::edytujKlienta(vector<klient> &klienci, int opcjaK,int nrK)
 {
     int k = nrK-1;
     string nowaPlec, noweImie, noweNazwisko, nowyAdres;
@@ -240,13 +233,15 @@ void program::edytujKlienta(vector<klient> klienci, int opcjaK,int nrK)
     }
     else if(opcjaK == 4)
     {
-        cout<<"Podaj innay adres: ";cin>>nowyAdres;
+        cin.ignore();
+        cout<<"Podaj innay adres: ";
+        getline(cin,nowyAdres);
         klienci[k].adres = nowyAdres;
     }
 
 }
 
-void program::edytujZamowienie(vector<zamowienie> zakupy,int opcjaZ,int nrZ)
+void program::edytujZamowienie(vector<zamowienie> &zakupy,int opcjaZ,int nrZ)
 {
     ifstream plik5;
     int nr;
@@ -267,9 +262,7 @@ void program::edytujZamowienie(vector<zamowienie> zakupy,int opcjaZ,int nrZ)
             plik5>>nr>>nazwaProduktu>>iloscProduktow>>cenaProduktu;
             if(nazwaProduktu == zmianaProduktu)
             {
-                cout<<"ZAKUPY:"<<zakupy[k].nazwa<<endl;
                 zakupy[k].nazwa = zmianaProduktu;
-                cout<<"ZAKUPY:"<<zakupy[k].nazwa<<endl;
                 cout<<"Podaj ilosc:  "; cin>>zmianaIlosci;
                 zakupy[k].ilosc = zmianaIlosci;
                 zakupy[k].wartosc = zmianaIlosci * cenaProduktu;

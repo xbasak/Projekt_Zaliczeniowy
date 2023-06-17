@@ -22,8 +22,8 @@ public:
     vector<klient> klienci;
     vector<zamowienie> zakupy;
     int opcjaK,opcjaZ;
-    void edytujKlienta(vector<klient> klienci, int opcjaK,int nrK);
-    void edytujZamowienie(vector<zamowienie> zakupy, int opcjaZ,int nrZ);
+    void edytujKlienta(vector<klient> &klienci, int opcjaK,int nrK);
+    void edytujZamowienie(vector<zamowienie> &zakupy, int opcjaZ,int nrZ);
 };
 
 #endif // PROGRAM_H
