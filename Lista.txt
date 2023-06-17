@@ -1,0 +1,16 @@
+Nr	Produkt 	Dostepnosc (W szt.)	     Cena (zl)
+1	mleko			5			3.50	
+2	chleb			8			4.99	
+3	jajka			7			7.99
+4	makaron			10			2.50
+5	ryz			9			4.99
+6	ser			4			5.99
+7	jogurt			8			6.99
+8	pomidory		15			4.50
+9	marchewki		6			2.99
+10	salata			5			3.49
+11	cukier			20			3.20
+12	kawa			15			12.99
+13	olej			7			6.99
+14	sol			10			1.99
+15	czekolada		11			2.99
